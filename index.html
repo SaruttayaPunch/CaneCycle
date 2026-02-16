@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CaneCycle - Smart Sugarcane Management</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { font-family: 'Scheherazade New', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        /* 1. Hero Section */
-.hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('360_F_538511475_ECZN8hVzzRjOgsZdVWHiwXpkY2wLJB1a.jpg') center/cover no-repeat; min-height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }        .hero p { font-size: 1.2rem; max-width: 600px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        
+        /* 1. Hero Section - ปรับปรุงให้รูปขึ้นชัวร์ๆ */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('360_F_538511475_ECZN8hVzzRjOgsZdVWHiwXpkY2wLJB1a.jpg'); 
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 500px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            padding: 0 20px;
+        }
+        
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; max-width: 600px; }
         .hero-btns { display: flex; gap: 15px; margin-top: 30px; }
         
         /* Buttons */
-        .btn { padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; border: none; }
+        .btn { padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; border: none; display: inline-block; }
         .btn-primary { background-color: #f39c12; color: white; }
         .btn-secondary { background-color: #2e7d32; color: white; }
         .btn:hover { opacity: 0.9; transform: translateY(-3px); }
@@ -43,16 +63,19 @@
         <h2>Our Services</h2>
         <div class="service-grid">
             <div class="card">
+                <i class="fas fa-truck fa-2x" style="color: #f39c12; margin-bottom: 10px;"></i>
                 <h3>Track Status</h3>
                 <p>Monitor your harvester's arrival and job progress in real-time.</p>
                 <a href="track.html" class="btn btn-secondary" style="padding: 8px 20px;">Track Now</a>
             </div>
             <div class="card">
+                <i class="fas fa-file-check fa-2x" style="color: #f39c12; margin-bottom: 10px;"></i>
                 <h3>Submit Work</h3>
                 <p>Finished your task? Upload your work proof here to receive payment.</p>
                 <a href="submit.html" class="btn btn-secondary" style="padding: 8px 20px;">Submit Now</a>
             </div>
             <div class="card">
+                <i class="fas fa-leaf fa-2x" style="color: #f39c12; margin-bottom: 10px;"></i>
                 <h3>Carbon Credits</h3>
                 <p>Zero-burning bonus: 1 Ton = 100 Credits. Redeem for cash or fertilizer.</p>
                 <a href="carbon.html" class="btn btn-secondary" style="padding: 8px 20px;">View Program</a>
@@ -69,6 +92,6 @@
             <p>Available Daily: 08:00 AM - 07:00 PM</p>
         </div>
     </footer>
-    </div>
+
 </body>
 </html>
