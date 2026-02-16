@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track My Harvester - CaneCycle</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        .status-box { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; font-weight: bold; margin: 20px 0; }
+        .progress-container { margin: 30px 0; text-align: left; }
+        .step { margin-bottom: 20px; color: #ccc; position: relative; padding-left: 30px; }
+        .step.active { color: #2e7d32; font-weight: bold; }
+        .step.active::before { content: "✓"; position: absolute; left: 0; background: #2e7d32; color: white; width: 20px; height: 20px; border-radius: 50%; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <a href="index.html" style="text-decoration: none; color: #666; font-size: 0.9rem; float: left;">← Back</a>
+    <br><br>
+    <h2 style="color: #333;">Live Tracking</h2>
+    <p style="color: #888;">Booking ID: #CN-2026-001</p>
+
+    <div class="status-box">🚚 Driver is on the way!</div>
+
+    <div class="progress-container">
+        <div class="step active">Booking Confirmed</div>
+        <div class="step active">Driver Dispatched</div>
+        <div class="step active" style="color: #f39c12;">Heading to your Plot (ETA: 15 mins)</div>
+        <div class="step">Harvesting in Progress</div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee;">
+    <p><strong>Driver:</strong> Somchai (081-XXX-XXXX)</p>
+    <button onclick="alert('Calling Driver...')" style="background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 8px; width: 100%; cursor: pointer;">Call Driver</button>
+</div>
+
+</body>
+</html>
