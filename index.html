@@ -3,63 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CaneCycle | Stop Burning, Start Earning</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>CaneCycle - Smart Sugarcane Management</title>
     <style>
-        body { font-family: 'Dongle', sans-serif; }
-        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('2379de24-5ebb-4124-944e-4f0cd6bef5e3.jpeg'); background-size: cover; background-position: center; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        
+        /* 1. Hero Section */
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594759733190-79883652899d?auto=format&fit=crop&q=80&w=1000') center/cover; height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; color: #4CAF50; }
+        .hero p { font-size: 1.2rem; max-width: 600px; }
+        .hero-btns { display: flex; gap: 15px; margin-top: 30px; }
+        
+        /* Buttons */
+        .btn { padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; border: none; }
+        .btn-primary { background-color: #f39c12; color: white; }
+        .btn-secondary { background-color: #2e7d32; color: white; }
+        .btn:hover { opacity: 0.9; transform: translateY(-3px); }
+
+        /* 2. Services Section */
+        .services { padding: 60px 20px; background: #f4f4f4; text-align: center; }
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 30px auto; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .card h3 { color: #2e7d32; margin-bottom: 15px; }
+
+        /* 3. Community & Footer */
+        .footer { padding: 40px 20px; background: #222; color: white; text-align: center; }
+        .line-btn { background-color: #06C755; color: white; display: inline-block; margin-top: 15px; }
     </style>
 </head>
-<body class="bg-white">
+<body>
 
-    <header class="hero-gradient h-screen flex flex-col items-center justify-center text-center text-white px-4 gap-4">
-        <h1 class="text-5xl md:text-7xl font-bold mb-4">CaneCycle</h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light">
-            Stop Burning. Start Earning. <br>
-            <span class="font-normal text-white">Turn sugarcane waste into clean energy and carbon credits.</span>
-<div class="flex flex-col md:flex-row gap-4 mt-6">
-    <a href="booking.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition duration-300 transform hover:scale-105">
-        Booking Now
-    </a>
-    <a href="balance.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition duration-300 transform hover:scale-105">
-        Check Balance
-     <a href="https://lin.ee/JJPp5KE" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition duration-300 transform hover:scale-105">
-        Join Line VIA  
-         <a href="submit.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition duration-300 transform hover:scale-105">
-        Submit work proof  
-    </a>
-</div>
-    </header>
+    <section class="hero">
+        <h1>CaneCycle</h1>
+        <p>Integrated Agricultural Solutions for Sugarcane Farmers. Book harvesters and manage your earnings in one place.</p>
+        <div class="hero-btns">
+            <a href="booking.html" class="btn btn-primary">Book a Harvester</a>
+            <a href="balance.html" class="btn btn-secondary">Current Balance</a>
+        </div>
+    </section>
 
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">3 Steps to Extra Income</h2>
-        <div class="grid md:grid-cols-3 gap-8 text-center">
-            <div class="p-6 bg-white rounded-2xl shadow-sm">
-                <div class="text-4xl mb-4">📍</div>
-                <h3 class="text-xl font-bold mb-2">Book via LINE</h3>
-                <p class="text-gray-600">Share your field location with one click.</p>
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+            <div class="card">
+                <h3>Track Status</h3>
+                <p>Monitor your harvester's arrival and job progress in real-time.</p>
+                <a href="#" style="color: #f39c12;">Coming Soon</a>
             </div>
-            <div class="p-6 bg-white rounded-2xl shadow-sm">
-                <div class="text-4xl mb-4">🚜</div>
-                <h3 class="text-xl font-bold mb-2">Free Baling</h3>
-                <p class="text-gray-600">We clear your field for free and bale the leaves.</p>
+            <div class="card">
+                <h3>Submit Work</h3>
+                <p>Finished your task? Upload your work proof here to receive payment.</p>
+                <a href="submit.html" class="btn btn-secondary" style="padding: 8px 20px;">Submit Now</a>
             </div>
-            <div class="p-6 bg-white rounded-2xl shadow-sm">
-                <div class="text-4xl mb-4">💰</div>
-                <h3 class="text-xl font-bold mb-2">Get Paid</h3>
-                <p class="text-gray-600">Receive leaf value + carbon credit bonuses.</p>
+            <div class="card">
+                <h3>Carbon Credits</h3>
+                <p>Zero-burning bonus: 1 Ton = 100 Credits. Redeem for cash or fertilizer.</p>
+                <a href="#" style="color: #2e7d32; font-weight:bold;">View Program</a>
             </div>
         </div>
     </section>
 
-            
-            </div>
+    <footer class="footer">
+        <h3>Join Our Community</h3>
+        <p>Stay updated and get support via LINE</p>
+        <a href="https://lin.ee/JJPp5KE" class="btn line-btn">Join LINE Official</a>
+        <div style="margin-top: 30px; font-size: 0.9rem; color: #888;">
+            <p><strong>Contact Us:</strong> 097-015-0007</p>
+            <p>Available Daily: 08:00 AM - 07:00 PM</p>
         </div>
-    </section>
-
-    <footer class="py-8 text-center text-gray-500 text-sm">
-        © 2026 CaneCycle Project. Built for Sustainable Future.
     </footer>
 
 </body>
