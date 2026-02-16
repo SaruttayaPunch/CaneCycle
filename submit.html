@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Work Proof - CaneCycle</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #2e7d32; text-align: center; }
+        label { display: block; margin-top: 15px; color: #333; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { background-color: #2e7d32; color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; margin-top: 25px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .submit-btn:hover { background-color: #1b5e20; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Work Submission</h2>
+    <form id="workForm">
+        <label for="driverName">Driver Name / ID</label>
+        <input type="text" id="driverName" placeholder="Enter your name">
+
+        <label for="plotNumber">Plot Number / Location</label>
+        <input type="text" id="plotNumber" placeholder="e.g. Zone A-12">
+
+        <label for="workType">Work Type</label>
+        <select id="workType">
+            <option value="harvesting">Sugar Cane Harvesting</option>
+            <option value="transport">Transportation</option>
+        </select>
+
+        <label for="proof">Upload Photo (Proof of Work)</label>
+        <input type="file" id="proof" accept="image/*">
+
+        <button type="button" class="submit-btn" onclick="alert('Work submitted successfully!')">Submit Proof</button>
+    </form>
+</div>
+
+</body>
+</html>
