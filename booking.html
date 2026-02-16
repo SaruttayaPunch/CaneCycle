@@ -12,8 +12,26 @@
         <h2 class="text-2xl font-bold text-green-800 mb-6">Booking Information</h2>
         <input type="text" placeholder="Farmer Name" class="w-full p-3 border rounded-xl mb-4">
         <input type="number" placeholder="Farm Size (Rai)" class="w-full p-3 border rounded-xl mb-6">
-        <button class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-green-700">Confirm Booking</button>
+        <<button onclick="confirmBooking()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-green-700 transition">
+            Confirm Booking
+        </button>
+        
         <a href="index.html" class="block mt-4 text-gray-400 text-sm">← back to home</a>
     </div>
+
+    <script>
+        function confirmBooking() {
+            // 1. Show the immediate web confirmation
+            alert("✅ Booking Received!\n\nYour request for the harvester has been logged. Please check your LINE chat for the arrival schedule.");
+
+            // 2. Simulate the 'LINE Confirmation' delay
+            setTimeout(() => {
+                alert("💬 LINE Notification:\n'Your harvester is scheduled! Arrival in 3 days (Feb 19). Our driver will call you 1 hour before arrival.'");
+                
+                // 3. Send them to the tracking page to see the progress
+                window.location.href = "track.html";
+            }, 1500); // This waits 1.5 seconds to feel like a real message arriving
+        }
+    </script>
 </body>
 </html>
