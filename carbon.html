@@ -44,19 +44,21 @@
 
 <script>
     function calculate() {
-        let weight = document.getElementById('weight').value;
-        let credits = weight * 100;
-        let cash = (credits / 1000) * 500;
+        let totalWeight = document.getElementById('weight').value;
         
+        // 1. The 50/50 Split
+        let farmerShare = totalWeight * 0.5;
+        let platformShare = totalWeight * 0.5;
+
+        // 2. Calculate Credits based on Farmer's Share (1 Ton = 100 Credits)
+        let credits = farmerShare * 100;
+
+        // Display results
         document.getElementById('creditResult').innerText = credits.toLocaleString();
         
-        if (credits >= 1000) {
-            document.getElementById('cashBonus').innerText = "Estimated Bonus: " + cash.toLocaleString() + " THB";
-        } else {
-            document.getElementById('cashBonus').innerText = "";
-        }
+        // Show the split details
+        document.getElementById('cashBonus').innerHTML = 
+            "Your Share: " + farmerShare.toLocaleString() + " Tons<br>" +
+            "<span style='font-size: 0.9rem; color: #666;'>CaneCycle Share: " + platformShare.toLocaleString() + " Tons</span>";
     }
 </script>
-
-</body>
-</html>
