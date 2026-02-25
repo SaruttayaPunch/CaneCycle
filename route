@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoRoute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f0f7f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 60px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(134,197,105,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 90%, rgba(56,161,58,0.12) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .logo-icon { font-size: 48px; line-height: 1; }
+    .logo-text { font-size: 28px; font-weight: 900; color: #2d7a2d; letter-spacing: -0.5px; }
+    .logo-sub { font-size: 14px; color: #6aad5a; font-weight: 600; margin-top: 2px; }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 32px rgba(56,161,58,0.10), 0 1px 4px rgba(0,0,0,0.05);
+      margin-top: 24px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6aad5a;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .stops-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+
+    .stop-row { display: flex; align-items: center; gap: 10px; }
+
+    .stop-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #e8f5e2;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; color: #38a13a;
+      flex-shrink: 0;
+    }
+    .stop-dot.origin { background: #38a13a; color: #fff; }
+
+    .stop-input {
+      flex: 1;
+      border: 2px solid #e2ede2;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px; font-weight: 600; color: #1e4d1e;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafff8;
+    }
+    .stop-input:focus { border-color: #38a13a; box-shadow: 0 0 0 3px rgba(56,161,58,0.12); }
+    .stop-input::placeholder { color: #b5d1b0; font-weight: 600; }
+
+    .btn-remove {
+      background: none; border: none; cursor: pointer;
+      color: #c5d8c0; font-size: 18px; padding: 4px;
+      border-radius: 6px; transition: color 0.15s; flex-shrink: 0;
+    }
+    .btn-remove:hover { color: #e05555; }
+
+    .btn-add {
+      width: 100%;
+      background: none;
+      border: 2px dashed #c5e0be;
+      border-radius: 12px;
+      padding: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700; color: #6aad5a;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-add:hover { border-color: #38a13a; color: #38a13a; background: #f2fbef; }
+
+    .options-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+
+    .option-box { display: flex; flex-direction: column; gap: 6px; }
+
+    .option-box label {
+      font-size: 12px; font-weight: 700; color: #6aad5a;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    .option-select {
+      border: 2px solid #e2ede2;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700; color: #1e4d1e;
+      background: #fafff8;
+      outline: none; cursor: pointer; transition: border-color 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236aad5a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-color: #fafff8;
+      padding-right: 36px;
+    }
+    .option-select:focus { border-color: #38a13a; }
+
+    .btn-calculate {
+      width: 100%;
+      margin-top: 24px;
+      background: linear-gradient(135deg, #38a13a 0%, #2d8c2f 100%);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px; font-weight: 900;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 6px 24px rgba(56,161,58,0.35);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-calculate:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(56,161,58,0.45); }
+    .btn-calculate:active { transform: translateY(0); }
+    .btn-calculate:disabled { opacity: 0.7; pointer-events: none; }
+
+    .spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* RESULTS */
+    .result-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 4px 32px rgba(56,161,58,0.10), 0 1px 4px rgba(0,0,0,0.05);
+      margin-top: 20px;
+      display: none;
+      animation: slideUp 0.4s cubic-bezier(0.34,1.4,0.64,1) forwards;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .result-header-icon {
+      width: 40px; height: 40px;
+      background: #e8f5e2; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .result-title { font-size: 16px; font-weight: 800; color: #1e4d1e; }
+    .result-subtitle { font-size: 13px; color: #6aad5a; font-weight: 600; }
+
+    .savings-banner {
+      background: linear-gradient(135deg, #e8f5e2, #d4eecc);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .saving-item { text-align: center; }
+    .saving-value { font-size: 22px; font-weight: 900; color: #2d7a2d; }
+    .saving-label { font-size: 11px; font-weight: 700; color: #6aad5a; text-transform: uppercase; letter-spacing: 0.8px; }
+    .saving-divider { width: 1px; height: 36px; background: rgba(56,161,58,0.2); }
+
+    .steps-title { font-size: 12px; font-weight: 700; color: #6aad5a; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+
+    .step-item {
+      display: flex; align-items: flex-start; gap: 12px; padding: 10px 0;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .step-item.show { opacity: 1; transform: translateY(0); }
+
+    .step-line-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 2px; }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #38a13a; color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-circle.last { background: #e05555; }
+    .step-connector { width: 2px; height: 22px; background: #d4eecc; margin-top: 4px; }
+
+    .step-name { font-size: 14px; font-weight: 700; color: #1e4d1e; margin-bottom: 2px; }
+    .step-meta { font-size: 12px; color: #9abf8e; font-weight: 600; }
+    .step-tag { font-size: 11px; font-weight: 700; color: #38a13a; background: #e8f5e2; padding: 2px 8px; border-radius: 100px; }
+
+    .tip-box {
+      background: #fffbea;
+      border: 1.5px solid #f5e27a;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 13px; font-weight: 600; color: #7a6200;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    @media (max-width: 480px) {
+      .card, .result-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    <div class="logo-text">EcoRoute</div>
+    <div class="logo-sub">Best route. Less fuel. Better planet.</div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">📍 Your Stops</div>
+
+    <div class="stops-list" id="stopsList">
+      <div class="stop-row">
+        <div class="stop-dot origin">🏭</div>
+        <input class="stop-input" type="text" placeholder="Start — warehouse or depot"/>
+      </div>
+      <div class="stop-row">
+        <div class="stop-dot">2</div>
+        <input class="stop-input" type="text" placeholder="First delivery stop"/>
+        <button class="btn-remove" onclick="removeStop(this)">✕</button>
+      </div>
+      <div class="stop-row">
+        <div class="stop-dot">3</div>
+        <input class="stop-input" type="text" placeholder="Second delivery stop"/>
+        <button class="btn-remove" onclick="removeStop(this)">✕</button>
+      </div>
+    </div>
+
+    <button class="btn-add" onclick="addStop()">＋ Add another stop</button>
+
+    <div class="options-row">
+      <div class="option-box">
+        <label>🚚 Vehicle</label>
+        <select class="option-select" id="vehicleType">
+          <option value="truck">Truck</option>
+          <option value="van">Van</option>
+          <option value="bike">Motorbike</option>
+          <option value="car">Car</option>
+        </select>
+      </div>
+      <div class="option-box">
+        <label>⛽ Fuel Type</label>
+        <select class="option-select" id="fuelType">
+          <option value="diesel">Diesel</option>
+          <option value="petrol">Petrol</option>
+          <option value="electric">Electric</option>
+          <option value="hybrid">Hybrid</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn-calculate" id="calcBtn" onclick="calculate()">
+      <span>🌿</span>
+      <span id="btnText">Find Best Route</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <div class="result-header-icon">✅</div>
+      <div>
+        <div class="result-title">Optimized Route Found!</div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+      </div>
+    </div>
+
+    <div class="savings-banner">
+      <div class="saving-item">
+        <div class="saving-value" id="saveDist">—</div>
+        <div class="saving-label">Total km</div>
+      </div>
+      <div class="saving-divider"></div>
+      <div class="saving-item">
+        <div class="saving-value" id="saveFuel">—</div>
+        <div class="saving-label">Fuel used</div>
+      </div>
+      <div class="saving-divider"></div>
+      <div class="saving-item">
+        <div class="saving-value" id="saveSaved">—</div>
+        <div class="saving-label">Saved 🎉</div>
+      </div>
+      <div class="saving-divider"></div>
+      <div class="saving-item">
+        <div class="saving-value" id="saveTime">—</div>
+        <div class="saving-label">Minutes</div>
+      </div>
+    </div>
+
+    <div class="steps-title">🗺 Optimized Order</div>
+    <div id="stepList"></div>
+
+    <div class="tip-box">💡 <span id="tipText"></span></div>
+  </div>
+
+</div>
+
+<script>
+  function updateDots() {
+    document.querySelectorAll('#stopsList .stop-row').forEach((row, i) => {
+      const dot = row.querySelector('.stop-dot');
+      if (i === 0) { dot.className = 'stop-dot origin'; dot.textContent = '🏭'; }
+      else { dot.className = 'stop-dot'; dot.textContent = i + 1; }
+    });
+  }
+
+  function addStop() {
+    const list = document.getElementById('stopsList');
+    const n = list.children.length + 1;
+    const row = document.createElement('div');
+    row.className = 'stop-row';
+    row.innerHTML = `
+      <div class="stop-dot">${n}</div>
+      <input class="stop-input" type="text" placeholder="Stop ${n} address"/>
+      <button class="btn-remove" onclick="removeStop(this)">✕</button>
+    `;
+    list.appendChild(row);
+    row.querySelector('input').focus();
+    updateDots();
+  }
+
+  function removeStop(btn) {
+    const rows = document.querySelectorAll('#stopsList .stop-row');
+    if (rows.length <= 2) return;
+    btn.closest('.stop-row').remove();
+    updateDots();
+  }
+
+  const tips = [
+    "Drive in the early morning to avoid traffic — saves up to 15% more fuel.",
+    "Keep tires properly inflated to improve fuel efficiency by up to 3%.",
+    "Avoid idling — turn off the engine if waiting more than 60 seconds.",
+    "Smooth acceleration and braking can save up to 20% fuel per trip.",
+    "Combining deliveries into one trip is always more eco-friendly than multiple runs.",
+  ];
+
+  function calculate() {
+    const stops = [...document.querySelectorAll('#stopsList .stop-input')]
+      .map(i => i.value.trim()).filter(Boolean);
+
+    if (stops.length < 2) { alert('Please enter at least 2 stops 📍'); return; }
+
+    const btn = document.getElementById('calcBtn');
+    const spinner = document.getElementById('spinner');
+    document.getElementById('btnText').textContent = 'Calculating…';
+    spinner.style.display = 'block';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      document.getElementById('btnText').textContent = 'Find Best Route';
+      showResults(stops);
+    }, 1800);
+  }
+
+  function showResults(stops) {
+    const origin = stops[0];
+    const optimized = [origin, ...stops.slice(1).sort(() => Math.random() - 0.3)];
+    const rates = { truck: 0.14, van: 0.09, bike: 0.04, car: 0.08 };
+    const vehicle = document.getElementById('vehicleType').value;
+    const fuelType = document.getElementById('fuelType').value;
+    const totalKm = (optimized.length * 7.2 + Math.random() * 15 + 5).toFixed(1);
+    const fuelUsed = (totalKm * (rates[vehicle] || 0.09)).toFixed(1);
+    const fuelSaved = (fuelUsed * 0.18).toFixed(1);
+    const totalMin = Math.round(totalKm * 2.2 + optimized.length * 5);
+
+    document.getElementById('saveDist').textContent = totalKm;
+    document.getElementById('saveFuel').textContent = fuelUsed + 'L';
+    document.getElementById('saveSaved').textContent = '−' + fuelSaved + 'L';
+    document.getElementById('saveTime').textContent = totalMin;
+    document.getElementById('resultSubtitle').textContent = `${optimized.length} stops · ${vehicle} · ${fuelType}`;
+
+    const stepList = document.getElementById('stepList');
+    stepList.innerHTML = '';
+    optimized.forEach((stop, i) => {
+      const isLast = i === optimized.length - 1;
+      const km = i === 0 ? null : (Math.random() * 10 + 2).toFixed(1);
+      const mins = i === 0 ? 'Start here' : `${Math.round(km * 2.2 + Math.random() * 4)} min away · ${km} km`;
+
+      const item = document.createElement('div');
+      item.className = 'step-item';
+      item.innerHTML = `
+        <div class="step-line-wrap">
+          <div class="step-circle ${isLast ? 'last' : ''}">${i === 0 ? '🏭' : isLast ? '🏁' : i + 1}</div>
+          ${!isLast ? '<div class="step-connector"></div>' : ''}
+        </div>
+        <div>
+          <div class="step-name">${stop}</div>
+          <div class="step-meta">${mins} ${i > 0 ? `<span class="step-tag">−${(Math.random()*0.3+0.05).toFixed(2)}L saved</span>` : ''}</div>
+        </div>
+      `;
+      stepList.appendChild(item);
+      setTimeout(() => item.classList.add('show'), i * 100 + 100);
+    });
+
+    document.getElementById('tipText').textContent = tips[Math.floor(Math.random() * tips.length)];
+    const card = document.getElementById('resultCard');
+    card.style.display = 'block';
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+</script>
+</body>
+</html>
